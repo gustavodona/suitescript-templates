@@ -1,10 +1,10 @@
 /**
- * @NApiVersion 2.x
+ * @NApiVersion 2.1
  *
  * @Author Gustavo Doná
  */
 define(["N/search"], function (search) {
-	function fnGetRecordThroughSearch(param) {
+	const getRecordFromSearch = (param) => {
 		var s = search.create({
 			type: "transaction",
 			filters: [["mainline", "is", "T"]],
@@ -21,39 +21,39 @@ define(["N/search"], function (search) {
 		}
 	}
 
-	function fnSetHeaderValues(record, headerValues) {
+	const setHeaderValues = (recordObject, headerValues) => {
 		for (var fieldid in headerValues) {
 			var value = headerValues[fieldid]
-			record.setValue(fieldid, value)
+			recordObject.setValue(fieldid, value)
 		}
 	}
 
-	function fnGetRecordValues(objRecord, fieldsToConsider) {
+	const getRecordValues = (recordObject, fieldsToConsider) => {
 		var fieldValues = {}
 		for (var fieldid in fieldsToConsider) {
-			fieldValues[fieldsToConsider[fieldid]] = objRecord.getValue(fieldsToConsider[fieldid])
+			fieldValues[fieldsToConsider[fieldid]] = recordObject.getValue(fieldsToConsider[fieldid])
 		}
 		return fieldValues
 	}
 
-	function fnGetRecordTextValues(objRecord, fieldsToConsider) {
+	const getRecordTextValues = (recordObject, fieldsToConsider) => {
 		var fieldValues = {}
 		for (var fieldid in fieldsToConsider) {
-			fieldValues[fieldsToConsider[fieldid]] = objRecord.getText(fieldsToConsider[fieldid])
+			fieldValues[fieldsToConsider[fieldid]] = recordObject.getText(fieldsToConsider[fieldid])
 		}
 		return fieldValues
 	}
 
-	function fnGetLineItemValues(objRecord, fldToConsider) {
+	const getLineItemValues = (recordObject, fieldsToConsider) => {
 		var fieldsToConsider = ["item", "quantity", "itemunitprice"]
 		var itemValues = []
-		var numLines = objRecord.getLineCount({
+		var numLines = recordObject.getLineCount({
 			sublistId: "item",
 		})
 		for (var i = 0; i < numLines; i++) {
 			var lineValues = {}
 			for (var fieldid in fieldsToConsider) {
-				lineValues[fieldsToConsider[fieldid]] = objRecord.getSublistValue({
+				lineValues[fieldsToConsider[fieldid]] = recordObject.getSublistValue({
 					sublistId: "item",
 					fieldId: fieldsToConsider[fieldid],
 					line: i,
@@ -70,18 +70,18 @@ define(["N/search"], function (search) {
 		return itemValues
 	}
 
-	function fnGroupBy(xs, key) {
+	const groupBy = (xs, key) => {
 		return xs.reduce(function (rv, x) {
 			;(rv[x[key]] = rv[x[key]] || []).push(x)
 			return rv
 		}, {})
 	}
 
-	function removeLines(objRecord, sublist) {
-		var ativSecCount = objRecord.getLineCount({ sublistId: sublist })
+	const removeLines = (recordObject, sublist) => {
+		var ativSecCount = recordObject.getLineCount({ sublistId: sublist })
 		if (ativSecCount > 0) {
 			for (i = ativSecCount; i > 0; i--) {
-				objRecord.removeLine({
+				recordObject.removeLine({
 					sublistId: sublist,
 					line: i - 1,
 					ignoreRecalc: true,
@@ -91,12 +91,12 @@ define(["N/search"], function (search) {
 	}
 
 	return {
-		fnGetRecordThroughSearch: fnGetRecordThroughSearch,
-		fnSetHeaderValues: fnSetHeaderValues,
-		fnGetRecordValues: fnGetRecordValues,
-		fnGetRecordTextValues: fnGetRecordTextValues,
-		fnGetLineItemValues: fnGetLineItemValues,
-		fnGroupBy: fnGroupBy,
-		removeLines: removeLines,
+		getRecordFromSearch,
+		setHeaderValues,
+		getRecordValues,
+		getRecordTextValues,
+		getLineItemValues,
+		groupBy,
+		removeLines,
 	}
 })
