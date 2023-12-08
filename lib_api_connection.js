@@ -3,11 +3,11 @@
  *
  * @Author Gustavo Doná
  */
-define(["N/https"], function (https) {
+define(["N/https"], (https) => {
 	const URL_TOKEN = "https://abc.com/api/token/"
 	const URL_ENDPOINT = "https://abc.com/api/token/"
 
-	function getToken() {
+	const getToken = () => {
 		const getTokenAuth = JSON.stringify({
 			username: "abc",
 			password: "123",
@@ -30,7 +30,7 @@ define(["N/https"], function (https) {
 		return JSON.parse(this.response.body).token
 	}
 
-	function getFunction(urlToken, urlEndpoint) {
+	const getFunction = (urlToken, urlEndpoint) => {
 		var header = []
 		header["Authorization"] = "Bearer " + urlToken
 

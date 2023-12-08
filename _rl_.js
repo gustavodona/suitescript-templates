@@ -4,7 +4,6 @@ define([], () => {
 	 * @NScriptType Restlet
 	 * @NModuleScope SameAccount
 	 *
-	 * @author Gustavo Doná
 	 */
 	var exports = {}
 

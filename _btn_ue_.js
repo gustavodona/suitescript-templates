@@ -3,7 +3,6 @@
  * @NScriptType UserEventScript
  * @NModuleScope SameAccount
  *
- * @author Gustavo Doná
  */
 
 define([], () => {

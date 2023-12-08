@@ -7,7 +7,6 @@ define(["N/search"], (search) => {
 	 * @NScriptType ClientScript
 	 * @NModuleScope SameAccount
 	 *
-	 * @author Gustavo Doná
 	 */
 	var exports = {}
 

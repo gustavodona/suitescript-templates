@@ -3,7 +3,6 @@
  * @NScriptType Suitelet
  * @NModuleScope SameAccount
  *
- * @author Gustavo Doná
  */
 
 define(["N/https"], (https) => {

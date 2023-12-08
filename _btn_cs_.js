@@ -2,7 +2,6 @@
  * @NApiVersion 2.x
  * @NModuleScope SameAccount
  *
- * @author Gustavo Doná
  */
 
 define(["N/url", "N/currentRecord"], function (url, currentRecord) {
